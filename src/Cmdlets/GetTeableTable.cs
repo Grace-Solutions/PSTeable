@@ -18,25 +18,25 @@ namespace PSTeable.Cmdlets
         /// </summary>
         [Parameter(Position = 0, ParameterSetName = "ByBase")]
         public string BaseId { get; set; }
-        
+
         /// <summary>
         /// The ID of the table to get
         /// </summary>
         [Parameter(Position = 0, ParameterSetName = "ByTable")]
         public string TableId { get; set; }
-        
+
         /// <summary>
         /// Whether to respect rate limits
         /// </summary>
         [Parameter()]
         public SwitchParameter RespectRateLimit { get; set; }
-        
+
         /// <summary>
         /// The delay to use when rate limited
         /// </summary>
         [Parameter()]
         public TimeSpan RateLimitDelay { get; set; } = TimeSpan.FromSeconds(5);
-        
+
         /// <summary>
         /// Processes the cmdlet
         /// </summary>
@@ -49,14 +49,14 @@ namespace PSTeable.Cmdlets
                     // Get all tables in a base
                     var request = new HttpRequestMessage(
                         HttpMethod.Get,
-                        new Uri(TeableUrlBuilder.GetTablesUrl(BaseId));
-                    
+                        new Uri(TeableUrlBuilder.GetTablesUrl(BaseId)));
+
                     var response = TeableSession.Instance.HttpClient.SendAndDeserialize<TeableListResponse<TeableTable>>(
                         request,
                         this,
                         RespectRateLimit,
                         RateLimitDelay);
-                    
+
                     if (response?.Data != null)
                     {
                         foreach (var table in response.Data)
@@ -70,14 +70,14 @@ namespace PSTeable.Cmdlets
                     // Get a specific table
                     var request = new HttpRequestMessage(
                         HttpMethod.Get,
-                        new Uri(TeableUrlBuilder.GetTableUrl(TableId));
-                    
+                        new Uri(TeableUrlBuilder.GetTableUrl(TableId)));
+
                     var response = TeableSession.Instance.HttpClient.SendAndDeserialize<TeableResponse<TeableTable>>(
                         request,
                         this,
                         RespectRateLimit,
                         RateLimitDelay);
-                    
+
                     if (response?.Data != null)
                     {
                         WriteObject(response.Data);
@@ -103,5 +103,6 @@ namespace PSTeable.Cmdlets
         }
     }
 }
+
 
 

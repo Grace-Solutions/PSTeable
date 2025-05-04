@@ -17,25 +17,25 @@ namespace PSTeable.Cmdlets
         /// </summary>
         [Parameter(Mandatory = true, Position = 0)]
         public string ViewId { get; set; }
-        
+
         /// <summary>
         /// Whether to respect rate limits
         /// </summary>
         [Parameter()]
         public SwitchParameter RespectRateLimit { get; set; }
-        
+
         /// <summary>
         /// The delay to use when rate limited
         /// </summary>
         [Parameter()]
         public TimeSpan RateLimitDelay { get; set; } = TimeSpan.FromSeconds(5);
-        
+
         /// <summary>
         /// Whether to force the operation without confirmation
         /// </summary>
         [Parameter()]
         public SwitchParameter Force { get; set; }
-        
+
         /// <summary>
         /// Processes the cmdlet
         /// </summary>
@@ -48,19 +48,19 @@ namespace PSTeable.Cmdlets
                 {
                     return;
                 }
-                
+
                 // Create the request
                 var request = new HttpRequestMessage(
                     HttpMethod.Delete,
-                    new Uri(TeableUrlBuilder.GetViewUrl(ViewId));
-                
+                    new Uri(TeableUrlBuilder.GetViewUrl(ViewId)));
+
                 // Send the request
                 using var response = TeableSession.Instance.HttpClient.SendWithErrorHandling(
                     request,
                     this,
                     RespectRateLimit,
                     RateLimitDelay);
-                
+
                 if (response != null && response.IsSuccessStatusCode)
                 {
                     WriteVerbose($"View {ViewId} removed successfully");
@@ -77,5 +77,7 @@ namespace PSTeable.Cmdlets
         }
     }
 }
+
+
 
 

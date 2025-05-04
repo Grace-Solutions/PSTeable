@@ -20,31 +20,31 @@ namespace PSTeable.Cmdlets
         /// </summary>
         [Parameter(Mandatory = true, Position = 0)]
         public string BaseId { get; set; }
-        
+
         /// <summary>
         /// The name of the table
         /// </summary>
         [Parameter(Mandatory = true, Position = 1)]
         public string Name { get; set; }
-        
+
         /// <summary>
         /// The description of the table
         /// </summary>
         [Parameter()]
         public string Description { get; set; }
-        
+
         /// <summary>
         /// Whether to respect rate limits
         /// </summary>
         [Parameter()]
         public SwitchParameter RespectRateLimit { get; set; }
-        
+
         /// <summary>
         /// The delay to use when rate limited
         /// </summary>
         [Parameter()]
         public TimeSpan RateLimitDelay { get; set; } = TimeSpan.FromSeconds(5);
-        
+
         /// <summary>
         /// Processes the cmdlet
         /// </summary>
@@ -58,25 +58,25 @@ namespace PSTeable.Cmdlets
                     name = Name,
                     description = Description
                 };
-                
+
                 var json = JsonSerializer.Serialize(body);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                
+
                 // Create the request
                 var request = new HttpRequestMessage(
                     HttpMethod.Post,
-                    new Uri(TeableUrlBuilder.GetTablesUrl(BaseId))
+                    new Uri(TeableUrlBuilder.GetTablesUrl(BaseId)))
                 {
                     Content = content
                 };
-                
+
                 // Send the request
                 var response = TeableSession.Instance.HttpClient.SendAndDeserialize<TeableResponse<TeableTable>>(
                     request,
                     this,
                     RespectRateLimit,
                     RateLimitDelay);
-                
+
                 if (response?.Data != null)
                 {
                     WriteObject(response.Data);
@@ -93,5 +93,7 @@ namespace PSTeable.Cmdlets
         }
     }
 }
+
+
 
 

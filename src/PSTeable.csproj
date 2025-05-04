@@ -18,14 +18,14 @@
     <PackageReference Include="System.Text.Json" Version="7.0.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <Reference Include="System.Web" />
   </ItemGroup>
 
   <PropertyGroup>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <OutDir>Module\PSTeable\lib</OutDir>
+    <OutDir>..\Module\PSTeable\lib</OutDir>
   </PropertyGroup>
 
 </Project>

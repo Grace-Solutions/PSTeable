@@ -21,44 +21,44 @@ namespace PSTeable.Cmdlets
         /// </summary>
         [Parameter(Mandatory = true, Position = 0)]
         public string TableId { get; set; }
-        
+
         /// <summary>
         /// The name of the view
         /// </summary>
         [Parameter(Mandatory = true, Position = 1)]
         public string Name { get; set; }
-        
+
         /// <summary>
         /// The type of the view
         /// </summary>
         [Parameter(Mandatory = true, Position = 2)]
         [ValidateSet("grid", "kanban", "gallery", "gantt", "calendar", "form")]
         public string Type { get; set; }
-        
+
         /// <summary>
         /// The filter for the view
         /// </summary>
         [Parameter()]
         public Hashtable Filter { get; set; }
-        
+
         /// <summary>
         /// The sort for the view
         /// </summary>
         [Parameter()]
         public Hashtable Sort { get; set; }
-        
+
         /// <summary>
         /// Whether to respect rate limits
         /// </summary>
         [Parameter()]
         public SwitchParameter RespectRateLimit { get; set; }
-        
+
         /// <summary>
         /// The delay to use when rate limited
         /// </summary>
         [Parameter()]
         public TimeSpan RateLimitDelay { get; set; } = TimeSpan.FromSeconds(5);
-        
+
         /// <summary>
         /// Processes the cmdlet
         /// </summary>
@@ -75,7 +75,7 @@ namespace PSTeable.Cmdlets
                         filterDict.Add(entry.Key.ToString(), entry.Value);
                     }
                 }
-                
+
                 var sortDict = new System.Collections.Generic.Dictionary<string, object>();
                 if (Sort != null)
                 {
@@ -84,7 +84,7 @@ namespace PSTeable.Cmdlets
                         sortDict.Add(entry.Key.ToString(), entry.Value);
                     }
                 }
-                
+
                 // Create the request body
                 var body = new
                 {
@@ -93,25 +93,25 @@ namespace PSTeable.Cmdlets
                     filter = filterDict.Count > 0 ? filterDict : null,
                     sort = sortDict.Count > 0 ? sortDict : null
                 };
-                
+
                 var json = JsonSerializer.Serialize(body);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                
+
                 // Create the request
                 var request = new HttpRequestMessage(
                     HttpMethod.Post,
-                    new Uri(TeableUrlBuilder.GetViewsUrl(TableId))
+                    new Uri(TeableUrlBuilder.GetViewsUrl(TableId)))
                 {
                     Content = content
                 };
-                
+
                 // Send the request
                 var response = TeableSession.Instance.HttpClient.SendAndDeserialize<TeableResponse<TeableView>>(
                     request,
                     this,
                     RespectRateLimit,
                     RateLimitDelay);
-                
+
                 if (response?.Data != null)
                 {
                     WriteObject(response.Data);
@@ -128,5 +128,7 @@ namespace PSTeable.Cmdlets
         }
     }
 }
+
+
 
 

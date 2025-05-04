@@ -50,7 +50,7 @@ namespace PSTeable.Utils
 
                     // Retry the request
                     response.Dispose();
-                    var retryRequest = new HttpRequestMessage(request.Method, new Uri(request.RequestUri));
+                    var retryRequest = new HttpRequestMessage(request.Method, request.RequestUri);
                     foreach (var header in request.Headers)
                     {
                         retryRequest.Headers.Add(header.Key, header.Value);
@@ -134,6 +134,7 @@ namespace PSTeable.Utils
         }
     }
 }
+
 
 
 

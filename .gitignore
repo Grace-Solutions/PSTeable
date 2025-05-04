@@ -1,0 +1,36 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio files
+.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.pidb
+*.sln.docstates
+
+# Build artifacts
+Module/PSTeable/lib/
+Artifacts/
+Releases/
+
+# PowerShell
+*.psprojs
+*.pssproj
+*.psproj
+
+# Misc
+*.tmp
+*.temp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.project
+.DS_Store

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright (c) 2025")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("PowerShell module for interacting with the Teable REST API")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+59ab0a9aaf88d19e1b9a793071b13c2817ed72cf")]
 [assembly: System.Reflection.AssemblyProductAttribute("PSTeable")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PSTeable")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

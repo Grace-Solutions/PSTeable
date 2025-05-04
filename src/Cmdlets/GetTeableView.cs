@@ -18,25 +18,25 @@ namespace PSTeable.Cmdlets
         /// </summary>
         [Parameter(Position = 0, ParameterSetName = "ByTable")]
         public string TableId { get; set; }
-        
+
         /// <summary>
         /// The ID of the view to get
         /// </summary>
         [Parameter(Position = 0, ParameterSetName = "ByView")]
         public string ViewId { get; set; }
-        
+
         /// <summary>
         /// Whether to respect rate limits
         /// </summary>
         [Parameter()]
         public SwitchParameter RespectRateLimit { get; set; }
-        
+
         /// <summary>
         /// The delay to use when rate limited
         /// </summary>
         [Parameter()]
         public TimeSpan RateLimitDelay { get; set; } = TimeSpan.FromSeconds(5);
-        
+
         /// <summary>
         /// Processes the cmdlet
         /// </summary>
@@ -49,14 +49,14 @@ namespace PSTeable.Cmdlets
                     // Get all views in a table
                     var request = new HttpRequestMessage(
                         HttpMethod.Get,
-                        new Uri(TeableUrlBuilder.GetViewsUrl(TableId));
-                    
+                        new Uri(TeableUrlBuilder.GetViewsUrl(TableId)));
+
                     var response = TeableSession.Instance.HttpClient.SendAndDeserialize<TeableListResponse<TeableView>>(
                         request,
                         this,
                         RespectRateLimit,
                         RateLimitDelay);
-                    
+
                     if (response?.Data != null)
                     {
                         foreach (var view in response.Data)
@@ -70,14 +70,14 @@ namespace PSTeable.Cmdlets
                     // Get a specific view
                     var request = new HttpRequestMessage(
                         HttpMethod.Get,
-                        new Uri(TeableUrlBuilder.GetViewUrl(ViewId));
-                    
+                        new Uri(TeableUrlBuilder.GetViewUrl(ViewId)));
+
                     var response = TeableSession.Instance.HttpClient.SendAndDeserialize<TeableResponse<TeableView>>(
                         request,
                         this,
                         RespectRateLimit,
                         RateLimitDelay);
-                    
+
                     if (response?.Data != null)
                     {
                         WriteObject(response.Data);
@@ -103,5 +103,7 @@ namespace PSTeable.Cmdlets
         }
     }
 }
+
+
 
 

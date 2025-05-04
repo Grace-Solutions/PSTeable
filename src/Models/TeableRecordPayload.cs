@@ -15,3 +15,4 @@ namespace PSTeable.Models
         public Dictionary<string, object> Fields { get; set; } = new Dictionary<string, object>();
     }
 }
+

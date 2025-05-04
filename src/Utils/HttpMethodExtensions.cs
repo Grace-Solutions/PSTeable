@@ -13,3 +13,4 @@ namespace PSTeable.Utils
         public static readonly HttpMethod Patch = new HttpMethod("PATCH");
     }
 }
+
