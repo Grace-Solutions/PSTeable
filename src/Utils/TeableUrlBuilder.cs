@@ -23,19 +23,19 @@ namespace PSTeable.Utils
             {
                 throw new InvalidOperationException("Not connected to Teable. Call Connect-Teable first.");
             }
-            
+
             var baseUrl = TeableSession.Instance.BaseUrl;
             var url = $"{baseUrl}/{path.TrimStart('/')}";
-            
+
             if (queryParams != null && queryParams.Count > 0)
             {
                 var queryString = BuildQueryString(queryParams);
                 url = $"{url}?{queryString}";
             }
-            
+
             return url;
         }
-        
+
         /// <summary>
         /// Builds a query string from a dictionary of parameters
         /// </summary>
@@ -44,20 +44,20 @@ namespace PSTeable.Utils
         private static string BuildQueryString(Dictionary<string, string> queryParams)
         {
             var queryString = new StringBuilder();
-            
+
             foreach (var param in queryParams)
             {
                 if (queryString.Length > 0)
                 {
                     queryString.Append("&");
                 }
-                
+
                 queryString.Append($"{HttpUtility.UrlEncode(param.Key)}={HttpUtility.UrlEncode(param.Value)}");
             }
-            
+
             return queryString.ToString();
         }
-        
+
         /// <summary>
         /// Gets the URL for spaces
         /// </summary>
@@ -66,7 +66,7 @@ namespace PSTeable.Utils
         {
             return BuildUrl("spaces");
         }
-        
+
         /// <summary>
         /// Gets the URL for a specific space
         /// </summary>
@@ -76,7 +76,7 @@ namespace PSTeable.Utils
         {
             return BuildUrl($"spaces/{spaceId}");
         }
-        
+
         /// <summary>
         /// Gets the URL for bases in a space
         /// </summary>
@@ -86,7 +86,7 @@ namespace PSTeable.Utils
         {
             return BuildUrl($"spaces/{spaceId}/bases");
         }
-        
+
         /// <summary>
         /// Gets the URL for a specific base
         /// </summary>
@@ -96,7 +96,7 @@ namespace PSTeable.Utils
         {
             return BuildUrl($"bases/{baseId}");
         }
-        
+
         /// <summary>
         /// Gets the URL for tables in a base
         /// </summary>
@@ -106,7 +106,7 @@ namespace PSTeable.Utils
         {
             return BuildUrl($"bases/{baseId}/tables");
         }
-        
+
         /// <summary>
         /// Gets the URL for a specific table
         /// </summary>
@@ -116,7 +116,7 @@ namespace PSTeable.Utils
         {
             return BuildUrl($"tables/{tableId}");
         }
-        
+
         /// <summary>
         /// Gets the URL for fields in a table
         /// </summary>
@@ -126,7 +126,7 @@ namespace PSTeable.Utils
         {
             return BuildUrl($"tables/{tableId}/fields");
         }
-        
+
         /// <summary>
         /// Gets the URL for a specific field
         /// </summary>
@@ -136,7 +136,7 @@ namespace PSTeable.Utils
         {
             return BuildUrl($"fields/{fieldId}");
         }
-        
+
         /// <summary>
         /// Gets the URL for records in a table
         /// </summary>
@@ -158,40 +158,40 @@ namespace PSTeable.Utils
             string pageToken = null)
         {
             var queryParams = new Dictionary<string, string>();
-            
+
             if (!string.IsNullOrEmpty(viewId))
             {
                 queryParams.Add("viewId", viewId);
             }
-            
+
             if (!string.IsNullOrEmpty(filter))
             {
                 queryParams.Add("filter", filter);
             }
-            
+
             if (!string.IsNullOrEmpty(sort))
             {
                 queryParams.Add("sort", sort);
             }
-            
+
             if (!string.IsNullOrEmpty(fields))
             {
                 queryParams.Add("fields", fields);
             }
-            
+
             if (pageSize.HasValue)
             {
                 queryParams.Add("pageSize", pageSize.Value.ToString());
             }
-            
+
             if (!string.IsNullOrEmpty(pageToken))
             {
                 queryParams.Add("pageToken", pageToken);
             }
-            
+
             return BuildUrl($"tables/{tableId}/records", queryParams);
         }
-        
+
         /// <summary>
         /// Gets the URL for a specific record
         /// </summary>
@@ -202,7 +202,7 @@ namespace PSTeable.Utils
         {
             return BuildUrl($"tables/{tableId}/records/{recordId}");
         }
-        
+
         /// <summary>
         /// Gets the URL for views in a table
         /// </summary>
@@ -212,7 +212,7 @@ namespace PSTeable.Utils
         {
             return BuildUrl($"tables/{tableId}/views");
         }
-        
+
         /// <summary>
         /// Gets the URL for a specific view
         /// </summary>
@@ -221,6 +221,54 @@ namespace PSTeable.Utils
         public static string GetViewUrl(string viewId)
         {
             return BuildUrl($"views/{viewId}");
+        }
+
+        /// <summary>
+        /// Gets the URL for records in a view
+        /// </summary>
+        /// <param name="viewId">The ID of the view</param>
+        /// <param name="filter">Optional filter expression</param>
+        /// <param name="sort">Optional sort expression</param>
+        /// <param name="fields">Optional fields to include</param>
+        /// <param name="pageSize">Optional page size</param>
+        /// <param name="pageToken">Optional page token for pagination</param>
+        /// <returns>The URL for records in the view</returns>
+        public static string GetViewRecordsUrl(
+            string viewId,
+            string filter = null,
+            string sort = null,
+            string fields = null,
+            int? pageSize = null,
+            string pageToken = null)
+        {
+            var queryParams = new Dictionary<string, string>();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                queryParams.Add("filter", filter);
+            }
+
+            if (!string.IsNullOrEmpty(sort))
+            {
+                queryParams.Add("sort", sort);
+            }
+
+            if (!string.IsNullOrEmpty(fields))
+            {
+                queryParams.Add("fields", fields);
+            }
+
+            if (pageSize.HasValue)
+            {
+                queryParams.Add("pageSize", pageSize.Value.ToString());
+            }
+
+            if (!string.IsNullOrEmpty(pageToken))
+            {
+                queryParams.Add("pageToken", pageToken);
+            }
+
+            return BuildUrl($"views/{viewId}/records", queryParams);
         }
     }
 }

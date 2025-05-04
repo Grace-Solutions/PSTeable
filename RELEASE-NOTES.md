@@ -1,5 +1,16 @@
 # Release Notes
 
+## 1.1.0 - 2025-05-04
+
+### Added
+- Enhanced schema management:
+  - Updated Export-TeableSchema to support exporting view schemas
+  - Added Import-TeableSchema for importing base and view schemas
+- Enhanced data export capabilities:
+  - Added Export-TeableRecords with support for JSON, XML, and CSV formats
+  - Added pipeline support for exporting records
+  - Added CSV flattening support for nested objects and arrays
+
 ## 1.0.0 - 2025-05-03
 
 ### Added

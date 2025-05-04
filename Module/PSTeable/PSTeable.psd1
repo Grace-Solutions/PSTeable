@@ -1,6 +1,6 @@
 @{
     RootModule = 'lib\PSTeable.dll'
-    ModuleVersion = '1.0.0'
+    ModuleVersion = '1.1.0'
     GUID = '8e4f8f5a-0f9a-4f5a-9f5a-0f9a4f5a9f5a'
     Author = 'PSTeable Contributors'
     CompanyName = 'Grace Solutions'
@@ -78,9 +78,11 @@
         # Data Conversion & Sync
         'ConvertTo-TeableRecord',
         'Export-TeableSchema',
+        'Import-TeableSchema',
         'Compare-TeableSchemas',
         'Import-TeableData',
         'Export-TeableData',
+        'Export-TeableRecords',
         'Backup-TeableData',
         'Restore-TeableData',
         'Sync-TeableData'
