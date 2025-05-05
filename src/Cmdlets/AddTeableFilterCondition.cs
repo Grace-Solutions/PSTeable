@@ -16,25 +16,34 @@ namespace PSTeable.Cmdlets
         /// </summary>
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
         public TeableFilter Filter { get; set; }
-        
+
         /// <summary>
         /// The field ID to filter on
         /// </summary>
         [Parameter(Mandatory = true, Position = 1)]
         public string FieldId { get; set; }
-        
+
         /// <summary>
         /// The operator to use
         /// </summary>
         [Parameter(Mandatory = true, Position = 2)]
+        [ValidateSet(
+            "Equal", "NotEqual",
+            "GreaterThan", "GreaterThanOrEqual",
+            "LessThan", "LessThanOrEqual",
+            "Contains", "NotContains",
+            "StartsWith", "EndsWith",
+            "IsEmpty", "IsNotEmpty",
+            "IsIn", "IsNotIn"
+        )]
         public TeableFilterOperator Operator { get; set; }
-        
+
         /// <summary>
         /// The value to filter by
         /// </summary>
         [Parameter(Mandatory = true, Position = 3)]
         public object Value { get; set; }
-        
+
         /// <summary>
         /// Processes the cmdlet
         /// </summary>
@@ -44,7 +53,7 @@ namespace PSTeable.Cmdlets
             {
                 // Add the condition to the filter
                 Filter.AddCondition(FieldId, Operator, Value);
-                
+
                 // Return the filter
                 WriteObject(Filter);
             }
