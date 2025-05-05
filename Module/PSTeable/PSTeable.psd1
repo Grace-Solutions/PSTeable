@@ -1,6 +1,6 @@
 @{
     RootModule = 'lib\PSTeable.dll'
-    ModuleVersion = '1.1.0'
+    ModuleVersion = '2025.05.04.1640'
     GUID = '8e4f8f5a-0f9a-4f5a-9f5a-0f9a4f5a9f5a'
     Author = 'PSTeable Contributors'
     CompanyName = 'Grace Solutions'
@@ -100,3 +100,6 @@
         }
     }
 }
+
+
+

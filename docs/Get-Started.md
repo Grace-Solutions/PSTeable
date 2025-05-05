@@ -14,10 +14,24 @@ Import-Module PSTeable
 
 ## Authentication
 
-Before you can use the module, you need to connect to the Teable API:
+Before you can use the module, you need to connect to the Teable API. You can connect directly or use connection profiles:
 
 ```powershell
-Connect-Teable -ApiKey "your-api-key" -BaseUrl "https://your-teable-instance.com/api"
+# Connect directly
+Connect-Teable -Token "your-api-token" -BaseUrl "https://your-teable-instance.com/api"
+
+# Or create and use connection profiles
+New-TeableProfile -Name "Development" -Token "dev-api-token" -BaseUrl "https://dev.teable-instance.com/api"
+Connect-Teable -ProfileName "Development"
+
+# List available profiles
+Get-TeableProfile
+
+# Switch between profiles
+Switch-TeableConnection -ProfileName "Production"
+
+# Test your connection
+Test-TeableConnection
 ```
 
 ## Working with Spaces
@@ -82,11 +96,15 @@ Records are the data in a table. You can manage records with the following comma
 # Get all records in a table
 Get-TeableRecord -TableId "table-id"
 
-# Get records with filtering
-Get-TeableRecord -TableId "table-id" -Filter @{ "field-name" = "value" }
+# Get records with advanced filtering
+$filter = New-TeableFilter
+$filter | Add-TeableFilterCondition -Field "Status" -Operator "=" -Value "Active"
+Get-TeableRecord -TableId "table-id" -Filter $filter
 
-# Get records with sorting
-Get-TeableRecord -TableId "table-id" -SortBy "field-name" -Descending
+# Get records with advanced sorting
+$sort = New-TeableSort
+$sort | Add-TeableSort -Field "CreatedTime" -Direction Descending
+Get-TeableRecord -TableId "table-id" -Sort $sort
 
 # Get records with projection
 Get-TeableRecord -TableId "table-id" -Property "field-name1", "field-name2"
@@ -203,14 +221,91 @@ You can import and export data with the following commands:
 # Export the schema of a base
 Export-TeableSchema -BaseId "base-id" -Path "schema.json"
 
+# Export the schema of a view
+Export-TeableSchema -ViewId "view-id" -Path "view-schema.json"
+
 # Compare two schemas
-Compare-TeableSchemas -ReferenceSchemaPath "schema1.json" -DifferenceSchemaPath "schema2.json"
+Compare-TeableSchemas -Path1 "schema1.json" -Path2 "schema2.json"
 
-# Export data from a table
-Export-TeableData -TableId "table-id" -Path "data.json"
+# Export data from a table to JSON
+Export-TeableData -TableId "table-id" -Path "data.json" -Format Json
 
-# Import data into a table
+# Export data from a table to CSV with flattened nested objects
+Export-TeableData -TableId "table-id" -Path "data.csv" -Format Csv -Flatten
+
+# Export data from a table to XML
+Export-TeableData -TableId "table-id" -Path "data.xml" -Format Xml
+
+# Export filtered data
+$filter = New-TeableFilter
+$filter | Add-TeableFilterCondition -Field "Status" -Operator "=" -Value "Active"
+Export-TeableData -TableId "table-id" -Path "active-records.json" -Filter $filter
+
+# Import data into a table from JSON
 Import-TeableData -TableId "table-id" -Path "data.json"
+
+# Import data into a table from CSV
+Import-TeableData -TableId "table-id" -Path "data.csv" -Format Csv
+
+# Import data with field mapping
+Import-TeableData -TableId "table-id" -Path "data.csv" -Format Csv -FieldMapping @{
+    "Customer Name" = "Name"
+    "Customer Email" = "Email"
+}
+
+# Import data with batch processing
+Import-TeableData -TableId "table-id" -Path "large-data.json" -BatchSize 50 -ContinueOnError
+
+# Update existing records using a key field
+Import-TeableData -TableId "table-id" -Path "updated-data.json" -Update -KeyField "Email"
+```
+
+## Batch Operations
+
+You can perform batch operations for improved performance:
+
+```powershell
+# Create multiple records in a single batch operation
+$records = @(
+    [PSCustomObject]@{
+        Name = "John Doe"
+        Email = "john.doe@example.com"
+    },
+    [PSCustomObject]@{
+        Name = "Jane Smith"
+        Email = "jane.smith@example.com"
+    }
+) | ConvertTo-TeableRecord
+
+Invoke-TeableBatch -TableId "table-id" -Operation Create -Records $records
+
+# Update multiple records in a single batch operation
+$records = @(
+    [PSCustomObject]@{
+        Id = "record-id-1"
+        Name = "John Doe Updated"
+    },
+    [PSCustomObject]@{
+        Id = "record-id-2"
+        Name = "Jane Smith Updated"
+    }
+) | ConvertTo-TeableRecord
+
+Invoke-TeableBatch -TableId "table-id" -Operation Update -Records $records
+
+# Delete multiple records in a single batch operation
+Invoke-TeableBatch -TableId "table-id" -Operation Delete -RecordIds @("record-id-1", "record-id-2")
+```
+
+## Performance Measurement
+
+You can measure the performance of operations:
+
+```powershell
+# Measure the performance of a script block
+Measure-TeableOperation -ScriptBlock {
+    Get-TeableRecord -TableId "table-id" -MaxCount 1000
+} -Iterations 5 -WarmUp
 ```
 
 ## Disconnecting
@@ -220,3 +315,9 @@ When you're done, you can disconnect from the Teable API:
 ```powershell
 Disconnect-Teable
 ```
+
+## Additional Resources
+
+For more examples, check out the sample scripts in the [Samples](./Samples) directory.
+
+

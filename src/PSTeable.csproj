@@ -5,7 +5,9 @@
     <AssemblyName>PSTeable</AssemblyName>
     <RootNamespace>PSTeable</RootNamespace>
     <LangVersion>latest</LangVersion>
-    <Version>1.1.0</Version>
+    <Version>2025.05.04.1640</Version>
+    <AssemblyVersion>2025.05.04.1640</AssemblyVersion>
+    <FileVersion>2025.05.04.1640</FileVersion>
     <Authors>PSTeable Contributors</Authors>
     <Description>PowerShell module for interacting with the Teable REST API</Description>
     <Copyright>Copyright (c) 2025</Copyright>
@@ -14,12 +16,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0" />
     <PackageReference Include="PowerShellStandard.Library" Version="5.1.1" />
     <PackageReference Include="System.Text.Json" Version="7.0.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0" />
     <Reference Include="System.Web" />
   </ItemGroup>
 
@@ -29,3 +33,8 @@
   </PropertyGroup>
 
 </Project>
+
+
+
+
+

@@ -547,7 +547,7 @@ namespace PSTeable.Cmdlets
                     return;
                 }
 
-                WriteVerbose($"View {viewId} updated successfully");
+                Logger.Verbose(this, $"View {viewId} updated successfully");
             }
             else
             {

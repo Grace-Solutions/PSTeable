@@ -1,5 +1,0 @@
-C:\Users\gsadmin\Documents\augment-projects\PSTeable\obj\Debug\netstandard2.1\PSTeable.csproj.AssemblyReference.cache
-C:\Users\gsadmin\Documents\augment-projects\PSTeable\obj\Debug\netstandard2.1\PSTeable.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\gsadmin\Documents\augment-projects\PSTeable\obj\Debug\netstandard2.1\PSTeable.AssemblyInfoInputs.cache
-C:\Users\gsadmin\Documents\augment-projects\PSTeable\obj\Debug\netstandard2.1\PSTeable.AssemblyInfo.cs
-C:\Users\gsadmin\Documents\augment-projects\PSTeable\obj\Debug\netstandard2.1\PSTeable.csproj.CoreCompileInputs.cache

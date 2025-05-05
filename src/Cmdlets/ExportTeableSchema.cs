@@ -205,7 +205,7 @@ namespace PSTeable.Cmdlets
 
             File.WriteAllText(Path, json);
 
-            WriteVerbose($"Base schema exported to {Path}");
+            Logger.Verbose(this, $"Base schema exported to {Path}");
         }
 
         private void ExportViewSchema()
@@ -297,7 +297,7 @@ namespace PSTeable.Cmdlets
 
             File.WriteAllText(Path, json);
 
-            WriteVerbose($"View schema exported to {Path}");
+            Logger.Verbose(this, $"View schema exported to {Path}");
         }
 
     }

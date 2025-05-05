@@ -270,6 +270,77 @@ namespace PSTeable.Utils
 
             return BuildUrl($"views/{viewId}/records", queryParams);
         }
+
+        /// <summary>
+        /// Gets the URL for searching records in a table
+        /// </summary>
+        /// <param name="tableId">The ID of the table</param>
+        /// <returns>The URL for searching records in the table</returns>
+        public static string GetTableSearchUrl(string tableId)
+        {
+            return BuildUrl($"tables/{tableId}/search");
+        }
+
+        /// <summary>
+        /// Gets the URL for searching records in a view
+        /// </summary>
+        /// <param name="viewId">The ID of the view</param>
+        /// <returns>The URL for searching records in the view</returns>
+        public static string GetViewSearchUrl(string viewId)
+        {
+            return BuildUrl($"views/{viewId}/search");
+        }
+
+        /// <summary>
+        /// Gets the URL for changes to records in a table
+        /// </summary>
+        /// <param name="tableId">The ID of the table</param>
+        /// <param name="queryParams">Optional query parameters</param>
+        /// <returns>The URL for changes to records in the table</returns>
+        public static string GetTableChangesUrl(string tableId, Dictionary<string, string> queryParams = null)
+        {
+            return BuildUrl($"tables/{tableId}/changes", queryParams);
+        }
+
+        /// <summary>
+        /// Gets the URL for webhooks
+        /// </summary>
+        /// <param name="tableId">The ID of the table</param>
+        /// <returns>The URL for webhooks</returns>
+        public static string GetWebhooksUrl(string tableId)
+        {
+            return BuildUrl($"tables/{tableId}/webhooks");
+        }
+
+        /// <summary>
+        /// Gets the URL for a specific webhook
+        /// </summary>
+        /// <param name="webhookId">The ID of the webhook</param>
+        /// <returns>The URL for the webhook</returns>
+        public static string GetWebhookUrl(string webhookId)
+        {
+            return BuildUrl($"webhooks/{webhookId}");
+        }
+
+        /// <summary>
+        /// Gets the URL for automations
+        /// </summary>
+        /// <param name="tableId">The ID of the table</param>
+        /// <returns>The URL for automations</returns>
+        public static string GetAutomationsUrl(string tableId)
+        {
+            return BuildUrl($"tables/{tableId}/automations");
+        }
+
+        /// <summary>
+        /// Gets the URL for a specific automation
+        /// </summary>
+        /// <param name="automationId">The ID of the automation</param>
+        /// <returns>The URL for the automation</returns>
+        public static string GetAutomationUrl(string automationId)
+        {
+            return BuildUrl($"automations/{automationId}");
+        }
     }
 }
 
